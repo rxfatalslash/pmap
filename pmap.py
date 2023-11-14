@@ -3,7 +3,6 @@
 # @author: rxfatalslash
 
 import os
-# import re
 import datetime
 import argparse as arg
 import socket as soc
@@ -54,27 +53,6 @@ def ping(target, verbose):
         return True
     else:
         return False
-
-"""
-def host(targets):
-    try:
-        if re.search("^([0-9]{1,3}\.){3}[0-9]{1,3}(\/[1-9][0-9]{1,2})?$", targets):
-            if "/" in targets:
-                hm = targets.split("/")[0]
-                h = hm.split(".")
-                if int(h[3]) == 0:
-                    h[3] = list(range(1, 256))
-                    return ".".join(map(str, h))
-                else:
-                    return ".".join(h)
-            else:
-                return targets
-        else:
-            print("Introduce una dirección IP válida")
-
-    except ValueError:
-        raise arg.ArgumentTypeError(f"Error al analizar los hosts")
-"""
 
 def ports(ports):
     try:
