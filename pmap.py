@@ -3,7 +3,7 @@
 # @author: rxfatalslash
 
 import os
-import re
+# import re
 import datetime
 import argparse as arg
 import socket as soc
@@ -14,24 +14,33 @@ def main():
 
     print(f"Escaner de puertos Pmap 1.0 {date}")
     
-    if ping(args.target, args.verbose):
-        print(f"Informe del escaneo de {args.target}\n")
-        print("HOST\t\tESTADO")
-        print(f"{args.target}\t\033[1;32mencendido\033[0;m\n")
+    if not args.noping:
+        if ping(args.target, args.verbose):
+            print(f"Informe del escaneo de {args.target}\n")
+            print("HOST\t\tESTADO")
+            print(f"{args.target}\t\033[1;32mEncendido\033[0;m\n")
 
-        if ping(args.target, args.verbose) and args.ports:
-            scan_ports(args.target, args.ports, args.open)
+            if ping(args.target, args.verbose) and args.ports:
+                print("PUERTO\t\tESTADO")
+                scan_ports(args.target, args.ports, args.open)
+        else:
+            print(f"Informe del escaneo de {args.target}\n")
+            print("HOST\t\tESTADO")
+            print(f"{args.target}\t\033[1;31mDesconectado\033[0;m\n")
     else:
         print(f"Informe del escaneo de {args.target}\n")
         print("HOST\t\tESTADO")
-        print(f"{args.target}\t\033[1;31mdesconectado\033[0;m\n")
+        print(f"{args.target}\t\033[1;32mEncendido\033[0;m\n")
+        print("PUERTO\t\tESTADO")
+        scan_ports(args.target, args.ports, args.open)
 
 def parse_arguments():
     p = arg.ArgumentParser(description="Escaner de puertos escrito en Python, libre de dependencias externas")
-    p.add_argument("-t", "--target", type=str, required=True, help="Dirección IP de la víctima (obligatorio)")
-    p.add_argument("-p", "--ports", type=ports, default=80, help="Puerto/s a escanear, puedes elegir uno o varios puertos separados por comas, o un rango de puertos separados por un guión, ej: (80,90) (100-1024)")
-    p.add_argument("-v", "--verbose", action="store_true", help="Activar verbosidad en la ejecuciíon del script")
+    p.add_argument("-t", "--target", type=str, required=True, help="Dirección IP del objetivo (obligatorio)")
+    p.add_argument("-p", "--ports", type=ports, default=[80], help="Puerto/s a escanear, puedes elegir uno o varios puertos separados por comas, o un rango de puertos separados por un guión, ej: (80,90) (100-1024). Por defecto se escaneará el puerto 80 si no se indica ningún puerto")
+    p.add_argument("-v", "--verbose", action="store_true", help="Activar verbosidad en la ejecucíon del script")
     p.add_argument("--open", action="store_true", help="Mostrar solo los puertos abiertos")
+    p.add_argument("-Pn", "--noping", action="store_true", help="Esta opción omite la comprobación del estado del host mediante el ping, se da por hecho que el host está encendido. Útil para casos en los que el host tiene desactivados los ping pero se sabe que está encendido")
 
     return p.parse_args()
 
@@ -45,25 +54,27 @@ def ping(target, verbose):
         return True
     else:
         return False
-    
-'''
+
+"""
 def host(targets):
     try:
         if re.search("^([0-9]{1,3}\.){3}[0-9]{1,3}(\/[1-9][0-9]{1,2})?$", targets):
             if "/" in targets:
-                h = targets.split("/")[0].split(".")
-                if h[3] == 0:
-                    for h[3] in range(0, 255):
-                        return h
+                hm = targets.split("/")[0]
+                h = hm.split(".")
+                if int(h[3]) == 0:
+                    h[3] = list(range(1, 256))
+                    return ".".join(map(str, h))
                 else:
-                    return h
+                    return ".".join(h)
+            else:
+                return targets
         else:
-            return targets
+            print("Introduce una dirección IP válida")
 
     except ValueError:
         raise arg.ArgumentTypeError(f"Error al analizar los hosts")
-'''
-
+"""
 
 def ports(ports):
     try:
@@ -79,8 +90,6 @@ def ports(ports):
         raise arg.ArgumentTypeError(f"Error al analizar los puertos")
     
 def scan_ports(target, ports, open):
-    print("PUERTO\tESTADO")  
-
     for port in ports:
         s = soc.socket(soc.AF_INET, soc.SOCK_STREAM)
         s.settimeout(1)
@@ -88,14 +97,14 @@ def scan_ports(target, ports, open):
         try:
             s.connect((target, port))
             if open:
-                print(f"{port}\t\033[1;32mabierto\033[0;m")
+                print(f"{port}\t\t\033[1;32mAbierto\033[0;m")
             else:
-                print(f"{port}\t\033[1;32mabierto\033[0;m")
+                print(f"{port}\t\t\033[1;32mAbierto\033[0;m")
 
             s.close()
         except soc.error:
             if not open:
-                print(f"{port}\t\033[1;31mcerrado\033[0;m")
+                print(f"{port}\t\t\033[1;31mCerrado\033[0;m")
 
 
 if __name__ == "__main__":
