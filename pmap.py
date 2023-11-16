@@ -3,7 +3,7 @@
 # @author: rxfatalslash
 
 import os
-# import re
+import re
 import datetime
 import argparse as arg
 import socket as soc
@@ -36,7 +36,7 @@ def main():
 
 def parse_arguments():
     p = arg.ArgumentParser(description="Escaner de puertos escrito en Python, libre de dependencias externas")
-    p.add_argument("-t", "--target", type=str, required=True, help="Dirección IP del objetivo (obligatorio)")
+    p.add_argument("-t", "--target", type=host, required=True, help="Dirección IP del objetivo (obligatorio)")
     p.add_argument("-p", "--ports", type=ports, default=[80], help="Puerto/s a escanear, puedes elegir uno o varios puertos separados por comas, o un rango de puertos separados por un guión, ej: (80,90) (100-1024). Por defecto se escaneará el puerto 80 si no se indica ningún puerto")
     p.add_argument("-v", "--verbose", action="store_true", help="Activar verbosidad en la ejecucíon del script")
     p.add_argument("--open", action="store_true", help="Mostrar solo los puertos abiertos")
@@ -55,7 +55,7 @@ def ping(target, verbose):
     else:
         return False
 
-"""
+
 def host(targets):
     try:
         if re.search("^([0-9]{1,3}\.){3}[0-9]{1,3}(\/[1-9][0-9]{1,2})?$", targets):
@@ -74,7 +74,7 @@ def host(targets):
 
     except ValueError:
         raise arg.ArgumentTypeError(f"Error al analizar los hosts")
-"""
+
 
 def ports(ports):
     try:
