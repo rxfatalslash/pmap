@@ -1,0 +1,8 @@
+Scan report from 192.168.1.15
+
+HOST			STATE
+192.168.1.15	Up
+
+PORT			STATE
+None
+

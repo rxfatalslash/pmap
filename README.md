@@ -12,6 +12,20 @@ chmod +x pmap.py
 ## Use
 This script works by passing it certain parameters and options.
 ```
-./pmap.py --help
+pmap.py [-h] -t TARGET [-p PORTS] [-v] [--open] [-Pn]
+
+Port scanner, free of external dependencies
+
+options:
+  -h, --help                    show this help message and exit
+
+  -t TARGET, --target TARGET    IP address to scan (required)
+
+  -p PORTS, --ports PORTS       Port/s to scan, you are able to use multiple ports (,) and ranges (-)
+
+  -v, --verbose                 Activate verbosity
+
+  --open                        Show only open ports
+
+  -Pn, --noping                 Skip the ping comprobation
 ```
-Run this command to see the different options and their description.
