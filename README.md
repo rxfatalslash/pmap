@@ -12,6 +12,7 @@ chmod +x pmap.py
 ## 🖱️ Use
 This script works by passing it certain parameters and options.
 ```
+$ python3 pmap.py -h
 pmap.py [-h] -t TARGET [-p PORTS] [-v] [--open] [-Pn]
 
 Port scanner, free of external dependencies

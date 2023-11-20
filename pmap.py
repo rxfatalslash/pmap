@@ -15,7 +15,7 @@ def parse_arguments():
     p.add_argument("-v", "--verbose", action="store_true", help="Activate verbosity")
     p.add_argument("--open", action="store_true", help="Show only open ports")
     p.add_argument("-Pn", "--noping", action="store_true", help="Skip the ping comprobation")
-    p.add_argument("-o", "--output", dest="out", nargs="?", help="Store the output in a file")
+    p.add_argument("-o", "--output", dest="out", help="Store the output in a file")
 
     return p.parse_args()
 
