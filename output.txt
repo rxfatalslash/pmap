@@ -1,5 +1,0 @@
-HOST			STATE
-192.168.1.1		Up
-
-PORT			STATE
-22			Open

@@ -52,7 +52,7 @@ def ports(ports):
         elif "_" in ports:
             return list(range(1, 65536))
         else:
-            return int(ports)
+            return [int(ports)]
     
     except ValueError:
         raise arg.ArgumentTypeError(f"Error analyzing ports")
@@ -82,14 +82,14 @@ def scan_file(ip, ports, open):
         try:
             s.connect((ip, port))
             if open:
-                return f"{port}\t\t\tOpen"
+                return f"{port}\t\t\t\tOpen\n"
             else:
-                return f"{port}\t\t\tOpen"
+                return f"{port}\t\t\t\tOpen\n"
 
             s.close()
         except soc.error:
             if not open:
-                return f"{port}\t\t\tClosed"
+                return f"{port}\t\t\t\tClosed\n"
 
 if __name__ == "__main__":
     args = parse_arguments()
