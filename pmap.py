@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # @author: rxfatalslash
 
@@ -77,11 +77,20 @@ if __name__ == "__main__":
     args = parse_arguments()
     date = datetime.now().strftime("%Y-%m-%d %X")
 
+    print("\033[1;32m   _ __  _ __ ___   __ _ _ __\033[0;m")
+    print("\033[1;32m  | '_ \\| '_ ' _ \\ / _' | '_ \\\033[0;m")
+    print("\033[1;32m  | |_) | | | | | | (_| | |_) |\033[0;m")
+    print("\033[1;32m  | .__/|_| |_| |_|\\__,_| -__/\033[0;m")
+    print("\033[1;32m  | |                   | |\033[0;m")
+    print("\033[1;32m  |_|                   |_|\033[0;m\n")
+    print("-----------------------------------------")
+
     print(f"Port scanner Pmap 1.0 {date}")
     
     if not args.noping:
         if ping(args.ip, args.verbose):
-            print(f"Scan repot from {args.ip}\n")
+            print(f"Scan repot from {args.ip}")
+            print("-----------------------------------------\n")
             print("HOST\t\tSTATE")
             print(f"{args.ip}\t\033[1;32mUp\033[0;m\n")
 
@@ -89,12 +98,14 @@ if __name__ == "__main__":
                 print("PORT\t\tSTATE")
                 scan_ports(args.ip, args.ports, args.open)
         else:
-            print(f"Scan report from {args.ip}\n")
+            print(f"Scan report from {args.ip}")
+            print("-----------------------------------------\n")
             print("HOST\t\tSTATE")
             print(f"{args.ip}\t\033[1;31mDown\033[0;m\n")
 
     else:
-        print(f"Scan report from {args.ip}\n")
+        print(f"Scan report from {args.ip}")
+        print("-----------------------------------------\n")
         print("HOST\t\tSTATE")
         print(f"{args.ip}\t\033[1;32mUp\033[0;m\n")
         print("PUERTO\t\tSTATE")
