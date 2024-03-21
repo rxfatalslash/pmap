@@ -32,10 +32,11 @@ def ping(ip, verbose):
 
 def host(ip):
     try:
-        if re.search("^([0-9]{1,3}\.){3}[0-9]{1,3}(\/[1-9][0-9]{1,2})?$", ip):
+        if re.search(r"^([0-9]{1,3}\.){3}[0-9]{1,3}(\/[1-9][0-9]{1,2})?$", ip):
             return ip
         else:
-            print("Introduce a valid IP address")
+            print("[\033[1;31mERROR\033[0;m] Introduce a valid IP address")
+            exit(1)
 
     except ValueError:
         raise arg.ArgumentTypeError(f"Error analyzing hosts")
