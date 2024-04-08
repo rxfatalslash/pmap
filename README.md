@@ -1,6 +1,6 @@
 # Description
 ### ⚠️This script is currently available on Linux⚠️
-Pmap is a port scanner written in Python. It has several options, from choosing the ports to scan to only showing open ports.
+Pmap is a port scanner written in Python. It has several options, from choosing the ports to scan to only show open ports.
 ## 🗳️ Installation
 You don't have to install any dependencies, this script uses local Python 3 libraries to work.
 <br>
@@ -29,6 +29,8 @@ options:
   --open                        Show only open ports
 
   -Pn, --noping                 Skip the ping comprobation
+
+  --timeout TIMEOUT     Set the timeout in seconds (default: 10 seconds)
 ```
 ## 📋 License
 ```
